@@ -54,6 +54,7 @@ netmask $IPMASK
 EOM
 
 ######################################################################################
+# Empêcher le client DHCP de réécrire le fichier resolv.conf
 
 dhclient_FILE="/etc/dhcp/dhclient.conf"
 cat <<EOM >$dhclient_FILE
