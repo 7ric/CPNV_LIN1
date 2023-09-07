@@ -5,10 +5,10 @@
 # git clone https://github.com/7ric/CPNV_LIN1.git
 # chmod +x CPNV_LIN1/srv-lin1-01.sh && CPNV_LIN1/srv-lin1-01.sh
 
-#WAN
+# Interface réseau WAN
 WAN_NIC=$(ip -o -4 route show to default | awk '{print $5}')
 
-#LAN
+# Interface réseau LAN
 LAN_NIC=$(ip link | awk -F: '$0 !~ "lo|vir|wl|^[^0-9]"{print $2a;getline}' | grep -v $WAN_NIC)
 
 IPMASK='255.255.255.0'
