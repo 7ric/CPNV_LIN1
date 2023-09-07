@@ -3,8 +3,7 @@
 # apt update -y && apt install git -y
 # git clone https://github.com/7ric/CPNV_LIN1.git
 # chmod +x CPNV_LIN1/srv-lin1-01.sh
-# cd CPNV_LIN1/
-# ./srv-lin1-01.sh
+# CPNV_LIN1/srv-lin1-01.sh
 
 #WAN
 WAN_NIC=$(ip -o -4 route show to default | awk '{print $5}')
@@ -12,11 +11,17 @@ WAN_NIC=$(ip -o -4 route show to default | awk '{print $5}')
 #LAN
 LAN_NIC=$(ip link | awk -F: '$0 !~ "lo|vir|wl|^[^0-9]"{print $2a;getline}' | grep -v $WAN_NIC)
 
-HOSTNAME='srv-lin1-01'
-IPV4ADDRESS='10.10.10.11'
 IPMASK='255.255.255.0'
 DOMAIN='lin1.local'
 DNSIPADDRESS='10.10.10.11'
+
+SRV01='srv-lin1-01'
+SRV02='srv-lin1-02'
+SRV03='nas-lin1-0'
+
+IPSRV01='10.10.10.11'
+IPSRV02='10.10.10.22'
+IPSRV03='10.10.10.33'
 
 ######################################################################################
 
@@ -36,7 +41,7 @@ iface $WAN_NIC inet dhcp
 # The LAN network interface
 auto $LAN_NIC
 iface $LAN_NIC inet static
-address $IPV4ADDRESS
+address $IPSRV01
 netmask $IPMASK
 
 EOM
@@ -47,7 +52,7 @@ host_FILE="/etc/hosts"
 cat <<EOM >$host_FILE
 
 127.0.0.1       localhost
-127.0.1.1       $HOSTNAME.$DOMAIN
+127.0.1.1       $SRV01.$DOMAIN
 
 # The following lines are desirable for IPv6 capable hosts
 ::1     localhost ip6-localhost ip6-loopback
@@ -70,7 +75,7 @@ EOM
 
 ######################################################################################
 
-hostnamectl set-hostname $HOSTNAME.$DOMAIN
+hostnamectl set-hostname $SRV01.$DOMAIN
 
 ######################################################################################
 
@@ -80,13 +85,13 @@ apt install -y openssh-server
 
 ######################################################################################
 
-echo 'net.ipv4.ip_forward=1' >> /etc/sysctl.conf
+echo 'net.ipv4.ip_forward=1' > /etc/sysctl.conf
 sysctl -p /etc/sysctl.conf
 
 apt install -y iptables
-iptables -t nat -A POSTROUTING -o ens32 -j MASQUERADE
+iptables -t nat -A POSTROUTING -o $WAN_NIC -j MASQUERADE
 
-apt install -y iptables-persistent
+yes | apt install -y iptables-persistent
 /sbin/iptables-save > /etc/iptables/rules.v4
 
 ######################################################################################
@@ -96,13 +101,13 @@ apt -y install dnsmasq
 dnsmasq_FILE="/etc/dnsmasq.conf"
 cat <<EOM >$dnsmasq_FILE
 
-address=/srv-lin1-01.lin1.local/srv-lin1-01/10.10.10.11
-address=/srv-lin1-02.lin1.local/srv-lin1-02/10.10.10.22
-address=/nas-lin1-01.lin1.local/nas-lin1-01/10.10.10.33
+address=/$SRV01.$DOMAIN/$SRV01/$IPSRV01
+address=/$SRV02.$DOMAIN/$SRV02/$IPSRV02
+address=/$SRV03.$DOMAIN/$SRV03/$IPSRV03
 
-ptr-record=11.10.10.10.in-addr.arpa.,"srv-lin1-01"
-ptr-record=22.10.10.10.in-addr.arpa.,"srv-lin1-02"
-ptr-record=33.10.10.10.in-addr.arpa.,"nas-lin1-01"
+ptr-record=11.10.10.10.in-addr.arpa.,"$SRV01"
+ptr-record=22.10.10.10.in-addr.arpa.,"$SRV02"
+ptr-record=33.10.10.10.in-addr.arpa.,"$SRV03"
 
 EOM
 
