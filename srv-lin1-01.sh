@@ -1,5 +1,7 @@
 #! /bin/bash
 
+# Installation sous Debian 12
+
 # sudo -s
 # apt update -y && apt install git -y
 # git clone https://github.com/7ric/CPNV_LIN1.git
