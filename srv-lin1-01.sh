@@ -114,6 +114,8 @@ sysctl -p /etc/sysctl.conf
 apt install -y iptables
 iptables -t nat -A POSTROUTING -o $WAN_NIC -j MASQUERADE
 
+# installation de iptables-persistent sans interaction
+
 debconf-set-selections <<EOF
 iptables-persistent iptables-persistent/autosave_v4 boolean true
 iptables-persistent iptables-persistent/autosave_v6 boolean true
