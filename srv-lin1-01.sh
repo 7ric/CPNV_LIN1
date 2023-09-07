@@ -77,6 +77,7 @@ hostnamectl set-hostname $HOSTNAME.$DOMAIN
 
 systemctl restart networking.service
 apt -y update && apt -y upgrade
+apt install -y openssh-server
 
 ######################################################################################
 
