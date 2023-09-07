@@ -56,7 +56,7 @@ EOM
 ######################################################################################
 
 dhclient_FILE="/etc/dhcp/dhclient.conf"
-cat <<EOM >dhclient_FILE
+cat <<EOM >$dhclient_FILE
 
 option rfc3442-classless-static-routes code 121 = array of unsigned integer 8;
 
@@ -74,7 +74,7 @@ host_FILE="/etc/hosts"
 cat <<EOM >$host_FILE
 
 127.0.0.1       localhost
-127.0.1.1       $SRV01.$DOMAIN
+$IPSRV01       $SRV01.$DOMAIN
 
 # The following lines are desirable for IPv6 capable hosts
 ::1     localhost ip6-localhost ip6-loopback
@@ -90,7 +90,7 @@ cat <<EOM >$resolve_FILE
 
 domain $DOMAIN
 search $DOMAIN
-nameserver 127.0.0.1
+nameserver $IPSRV01
 nameserver 1.1.1.1
 
 EOM
