@@ -55,6 +55,19 @@ EOM
 
 ######################################################################################
 
+dhclient_FILE="/etc/dhcp/dhclient.conf"
+cat <<EOM >dhclient_FILE
+
+option rfc3442-classless-static-routes code 121 = array of unsigned integer 8;
+
+send host-name = gethostname();
+request subnet-mask, broadcast-address, time-offset, routers,
+        dhcp6.name-servers, dhcp6.domain-search, dhcp6.fqdn, dhcp6.sntp-servers,
+        netbios-name-servers, netbios-scope, interface-mtu,
+        rfc3442-classless-static-routes, ntp-servers;
+
+######################################################################################
+
 host_FILE="/etc/hosts"
 cat <<EOM >$host_FILE
 
