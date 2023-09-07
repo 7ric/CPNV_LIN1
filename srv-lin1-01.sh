@@ -23,6 +23,10 @@ IPSRV01='10.10.10.11'
 IPSRV02='10.10.10.22'
 IPSRV03='10.10.10.33'
 
+IPREVSRV01='11.10.10.10'
+IPSREVRV02='22.10.10.10'
+IPREVSRV03='33.10.10.10'
+
 ######################################################################################
 
 net_FILE="/etc/network/interfaces"
@@ -105,9 +109,9 @@ address=/$SRV01.$DOMAIN/$SRV01/$IPSRV01
 address=/$SRV02.$DOMAIN/$SRV02/$IPSRV02
 address=/$SRV03.$DOMAIN/$SRV03/$IPSRV03
 
-ptr-record=11.10.10.10.in-addr.arpa.,"$SRV01"
-ptr-record=22.10.10.10.in-addr.arpa.,"$SRV02"
-ptr-record=33.10.10.10.in-addr.arpa.,"$SRV03"
+ptr-record=$IPREVSRV01.in-addr.arpa.,"$SRV01"
+ptr-record=$IPREVSRV02.in-addr.arpa.,"$SRV02"
+ptr-record=$IPREVSRV03.in-addr.arpa.,"$SRV03"
 
 EOM
 
