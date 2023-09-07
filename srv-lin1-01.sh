@@ -184,6 +184,7 @@ dhcp-option=1,$IPMASK
 
 #DNS
 dhcp-option=6,$DNSIPADDRESS
+
 #Route
 dhcp-option=3,$IPSRV01
 
