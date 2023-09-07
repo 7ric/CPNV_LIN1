@@ -1,5 +1,12 @@
 #! /bin/bash
 
+# apt update -y
+# apt install git -y
+# git clone https://github.com/7ric/CPNV_LIN1.git
+# chmod +x CPNV_LIN1/srv-lin1-01.sh
+# cd CPNV_LIN1/
+# ./srv-lin1-01.sh
+
 #WAN
 WAN_NIC=$(ip -o -4 route show to default | awk '{print $5}')
 
