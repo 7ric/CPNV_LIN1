@@ -33,6 +33,7 @@ DHCP_IPSTART='10.10.10.110'
 DHCP_IPSTOP='10.10.10.119'
 
 ######################################################################################
+# Configure the network interfaces
 
 net_FILE="/etc/network/interfaces"
 cat <<EOM >$net_FILE
@@ -56,7 +57,7 @@ netmask $IPMASK
 EOM
 
 ######################################################################################
-# Empêcher le client DHCP de réécrire le fichier resolv.conf
+# Prevent the DHCP client from rewriting the resolv.conf file
 
 dhclient_FILE="/etc/dhcp/dhclient.conf"
 cat <<EOM >$dhclient_FILE
@@ -72,6 +73,7 @@ request subnet-mask, broadcast-address, time-offset, routers,
 EOM
 
 ######################################################################################
+# Configure the hosts file
 
 host_FILE="/etc/hosts"
 cat <<EOM >$host_FILE
@@ -87,6 +89,7 @@ ff02::2 ip6-allrouters
 EOM
 
 ######################################################################################
+# Configure the resolv.conf file
 
 resolve_FILE="/etc/resolv.conf"
 cat <<EOM >$resolve_FILE
@@ -99,16 +102,19 @@ nameserver 1.1.1.1
 EOM
 
 ######################################################################################
+# Set the hostname
 
 hostnamectl set-hostname $SRV01.$DOMAIN
 
 ######################################################################################
+# Restart networking service, update and upgrade packages, and install OpenSSH server
 
 systemctl restart networking.service
 apt -y update && apt -y upgrade
 apt install -y openssh-server
 
 ######################################################################################
+# Enable IP forwarding and configure iptables for NAT
 
 echo 'net.ipv4.ip_forward=1' > /etc/sysctl.conf
 sysctl -p /etc/sysctl.conf
@@ -127,6 +133,7 @@ apt install -y iptables-persistent
 /sbin/iptables-save > /etc/iptables/rules.v4
 
 ######################################################################################
+# Install dnsmasq and configure it
 
 apt -y install dnsmasq
 
