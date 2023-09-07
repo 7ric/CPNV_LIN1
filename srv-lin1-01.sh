@@ -10,7 +10,7 @@
 WAN_NIC=$(ip -o -4 route show to default | awk '{print $5}')
 
 #LAN
-LAN_NIC=ip link | awk -F: '$0 !~ "lo|vir|wl|^[^0-9]"{print $2a;getline}' | grep -v $WAN_NIC
+LAN_NIC=$(ip link | awk -F: '$0 !~ "lo|vir|wl|^[^0-9]"{print $2a;getline}' | grep -v $WAN_NIC)
 
 HOSTNAME='srv-lin1-01'
 IPV4ADDRESS='10.10.10.11'
