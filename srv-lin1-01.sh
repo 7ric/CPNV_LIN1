@@ -26,16 +26,29 @@ IPSRV02='10.10.10.22'
 IPSRV03='10.10.10.33'
 
 IFS='.' read -ra octets <<< "$IPSRV01"
-reversed_octets=$(printf "%s\n" "${octets[@]}" | tac)
-IPREVSRV01=$(IFS='.'; echo "${reversed_octets[*]}")
+for ((i=${#octets[@]}-1; i>=0; i--)); do
+  IPREVSRV01+="${octets[i]}"
+  if [[ $i -gt 0 ]]; then
+    IPREVSRV01+="."
+  fi
+done
 
 IFS='.' read -ra octets <<< "$IPSRV02"
-reversed_octets=$(printf "%s\n" "${octets[@]}" | tac)
-IPREVSRV02=$(IFS='.'; echo "${reversed_octets[*]}")
+for ((i=${#octets[@]}-1; i>=0; i--)); do
+  IPREVSRV02+="${octets[i]}"
+  if [[ $i -gt 0 ]]; then
+    IPREVSRV02+="."
+  fi
+done
 
 IFS='.' read -ra octets <<< "$IPSRV03"
-reversed_octets=$(printf "%s\n" "${octets[@]}" | tac)
-IPREVSRV03=$(IFS='.'; echo "${reversed_octets[*]}")
+for ((i=${#octets[@]}-1; i>=0; i--)); do
+  IPREVSRV03+="${octets[i]}"
+  if [[ $i -gt 0 ]]; then
+    IPREVSRV03+="."
+  fi
+done
+
 
 DHCP_IPSTART='10.10.10.110'
 DHCP_IPSTOP='10.10.10.119'
