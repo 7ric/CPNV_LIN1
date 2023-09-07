@@ -96,7 +96,12 @@ sysctl -p /etc/sysctl.conf
 apt install -y iptables
 iptables -t nat -A POSTROUTING -o $WAN_NIC -j MASQUERADE
 
-yes | apt install -y iptables-persistent
+debconf-set-selections <<EOF
+iptables-persistent iptables-persistent/autosave_v4 boolean true
+iptables-persistent iptables-persistent/autosave_v6 boolean true
+EOF
+
+apt install -y iptables-persistent
 /sbin/iptables-save > /etc/iptables/rules.v4
 
 ######################################################################################
