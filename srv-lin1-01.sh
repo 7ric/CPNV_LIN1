@@ -27,6 +27,9 @@ IPREVSRV01='11.10.10.10'
 IPSREVRV02='22.10.10.10'
 IPREVSRV03='33.10.10.10'
 
+DHCP_IPSTART='10.10.10.110'
+DHCP_IPStop='10.10.10.119'
+
 ######################################################################################
 
 net_FILE="/etc/network/interfaces"
@@ -117,6 +120,25 @@ address=/$SRV03.$DOMAIN/$SRV03/$IPSRV03
 ptr-record=$IPREVSRV01.in-addr.arpa.,"$SRV01"
 ptr-record=$IPREVSRV02.in-addr.arpa.,"$SRV02"
 ptr-record=$IPREVSRV03.in-addr.arpa.,"$SRV03"
+
+domain=$DOMAIN
+dhcp-authoritative
+dhcp-leasefile=/tmp/dhcp.leases
+read-ethers
+
+#Scope DHCP
+dhcp-range=$DHCP_IPSTART,$DHCP_IPSTOP,12h
+
+#Netmask
+dhcp-option=1,$IPMASK
+
+#DNS
+dhcp-option=6,$DNSIPADDRESS
+#Route
+dhcp-option=3,$IPSRV01
+
+#Bind Interface LAN
+interface=$LAN_NIC
 
 EOM
 
