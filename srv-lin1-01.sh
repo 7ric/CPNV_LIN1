@@ -19,7 +19,7 @@ DNSIPADDRESS='10.10.10.11'
 
 SRV01='srv-lin1-01'
 SRV02='srv-lin1-02'
-SRV03='nas-lin1-0'
+SRV03='nas-lin1-01'
 
 IPSRV01='10.10.10.11'
 IPSRV02='10.10.10.22'
