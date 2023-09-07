@@ -66,6 +66,8 @@ request subnet-mask, broadcast-address, time-offset, routers,
         netbios-name-servers, netbios-scope, interface-mtu,
         rfc3442-classless-static-routes, ntp-servers;
 
+EOM
+
 ######################################################################################
 
 host_FILE="/etc/hosts"
