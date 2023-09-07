@@ -25,9 +25,17 @@ IPSRV01='10.10.10.11'
 IPSRV02='10.10.10.22'
 IPSRV03='10.10.10.33'
 
-IPREVSRV01='11.10.10.10'
-IPREVSRV02='22.10.10.10'
-IPREVSRV03='33.10.10.10'
+IFS='.' read -ra octets <<< "$IPSRV01"
+reversed_octets=$(printf "%s\n" "${octets[@]}" | tac)
+IPREVSRV01=$(IFS='.'; echo "${reversed_octets[*]}")
+
+IFS='.' read -ra octets <<< "$IPSRV02"
+reversed_octets=$(printf "%s\n" "${octets[@]}" | tac)
+IPREVSRV02=$(IFS='.'; echo "${reversed_octets[*]}")
+
+IFS='.' read -ra octets <<< "$IPSRV03"
+reversed_octets=$(printf "%s\n" "${octets[@]}" | tac)
+IPREVSRV03=$(IFS='.'; echo "${reversed_octets[*]}")
 
 DHCP_IPSTART='10.10.10.110'
 DHCP_IPSTOP='10.10.10.119'
