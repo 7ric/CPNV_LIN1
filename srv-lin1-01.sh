@@ -25,6 +25,7 @@ IPSRV01='10.10.10.11'
 IPSRV02='10.10.10.22'
 IPSRV03='10.10.10.33'
 
+# IPREVSRV01 --> IP for reverse search
 IFS='.' read -ra octets <<< "$IPSRV01"
 for ((i=${#octets[@]}-1; i>=0; i--)); do
   IPREVSRV01+="${octets[i]}"
@@ -33,6 +34,7 @@ for ((i=${#octets[@]}-1; i>=0; i--)); do
   fi
 done
 
+# IPREVSRV02 --> IP for reverse search
 IFS='.' read -ra octets <<< "$IPSRV02"
 for ((i=${#octets[@]}-1; i>=0; i--)); do
   IPREVSRV02+="${octets[i]}"
@@ -41,6 +43,7 @@ for ((i=${#octets[@]}-1; i>=0; i--)); do
   fi
 done
 
+# IPREVSRV03 --> IP for reverse search
 IFS='.' read -ra octets <<< "$IPSRV03"
 for ((i=${#octets[@]}-1; i>=0; i--)); do
   IPREVSRV03+="${octets[i]}"
@@ -48,7 +51,6 @@ for ((i=${#octets[@]}-1; i>=0; i--)); do
     IPREVSRV03+="."
   fi
 done
-
 
 DHCP_IPSTART='10.10.10.110'
 DHCP_IPSTOP='10.10.10.119'
