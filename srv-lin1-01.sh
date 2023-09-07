@@ -124,5 +124,5 @@ systemctl restart dnsmasq.service
 
 ######################################################################################
 
-rm -r CPNV_LIN1/srv-lin1-01.sh
+rm -r CPNV_LIN1/
 
