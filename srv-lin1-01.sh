@@ -81,6 +81,7 @@ EOM
 
 ######################################################################################
 # Prevent the DHCP client from rewriting the resolv.conf file
+# remove options --> domain-name, domain-name-servers, domain-search, host-name
 
 dhclient_FILE="/etc/dhcp/dhclient.conf"
 cat <<EOM >$dhclient_FILE
