@@ -35,7 +35,7 @@ auto $LAN_NIC
 iface $LAN_NIC inet static
 address $IPSRV
 netmask $IPMASK
-gateway=$GATEWAYIPADDRESS
+gateway $GATEWAYIPADDRESS
 
 EOM
 
