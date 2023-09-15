@@ -431,7 +431,7 @@ ldapsearch -x -D "$LdapAdminCNString" -b "$LdapDCString" "(objectclass=*)" -w $L
 ######################################################################################
 # Installation LDAP Account Manager 
 
-wget https://sourceforge.net/projects/lam/files/lam/7.4/lam-7.4.tar.gz
+wget https://github.com/LDAPAccountManager/lam/releases/download/lam_8_4/ldap-account-manager_8.4-1_all.deb
 dpkg -i ldap-account-manager_8.4-1_all.deb
 apt install -f -y
 
