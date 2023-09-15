@@ -438,6 +438,8 @@ apt install -f -y
 echo "LDAP Account Manager has been successfully installed."
 echo "You can access the application using the following address: http://IP/lam (the default password is 'lam')."
 
+rm ldap-account-manager_8.4-1_all.deb
+
 ######################################################################################
 
 rm -r CPNV_LIN1/
